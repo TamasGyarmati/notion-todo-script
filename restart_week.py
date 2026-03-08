@@ -5,6 +5,7 @@ from datetime import datetime
 notion = Client(auth=os.environ["NOTION_TOKEN"])
 page_id = os.environ["NOTION_PAGE_ID"]
 
+KCAL_LIMIT = 1800
 today = datetime.now().weekday()
 
 if today == 6:
@@ -48,5 +49,5 @@ for child in child_pages["results"]:
                             print(f" - New empty field inserted below '{text_content}'")
                             notion.blocks.children.append(block_id=day_id, after=block["id"], children=[
                                 {"object": "block", "type": "to_do", "to_do": {"rich_text": [{"type": "text", "text": {"content": "Weight - in"}}], "checked": False}},
-                                {"object": "block", "type": "to_do", "to_do": {"rich_text": [{"type": "text", "text": {"content": "1800 kcal"}}], "checked": False}}
+                                {"object": "block", "type": "to_do", "to_do": {"rich_text": [{"type": "text", "text": {"content": f"{KCAL_LIMIT} kcal"}}], "checked": False}}
                             ])
