@@ -1,10 +1,21 @@
 import os
 from notion_client import Client
+from datetime import datetime
 
 notion = Client(auth=os.environ["NOTION_TOKEN"])
 page_id = os.environ["NOTION_PAGE_ID"]
 
-TARGET_DAYS = ["Vasárnap"]
+today = datetime.now().weekday()
+
+if today == 6:
+    target_days = ["Hétfő", "Kedd", "Szerda", "Csütörtök", "Péntek", "Szombat"]
+    print("Sunday mode: Resetting Monday - Saturday")
+elif today == 0:
+    target_days = ["Vasárnap"]
+    print("Monday mode: Resetting Sunday")
+else:
+    print("Nothing to update. Script exitting...")
+    exit()
 
 child_pages = notion.blocks.children.list(block_id=page_id)
 
@@ -13,7 +24,7 @@ for child in child_pages["results"]:
         day_title = child["child_page"]["title"]
         day_id = child["id"]
         
-        if day_title in TARGET_DAYS:
+        if day_title in target_days:
             print(f"Resetting {day_title} ...")
 
             notion.pages.update(page_id=day_id, icon={"type": "emoji", "emoji": "☑️"})
