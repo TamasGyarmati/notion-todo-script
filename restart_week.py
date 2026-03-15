@@ -32,7 +32,7 @@ for child in child_pages["results"]:
 
             blocks = notion.blocks.children.list(block_id=day_id)
             for block in blocks["results"]:
-                if block["type"] == "to_do":
+                if block["type"] == "to_do" or block["type"] == "toggle":
                     notion.blocks.delete(block_id=block["id"])
 
             updated_blocks = notion.blocks.children.list(block_id=day_id)["results"]
