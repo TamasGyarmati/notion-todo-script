@@ -12,7 +12,7 @@ if today == 6:
     target_days = ["Hétfő", "Kedd", "Szerda", "Csütörtök", "Péntek", "Szombat"]
     print("Sunday mode: Resetting Monday - Saturday")
 elif today == 0:
-    target_days = ["Vasárnap"]
+    target_days = ["Vasárnap", "Heti célok"]
     print("Monday mode: Resetting Sunday")
 else:
     print("Nothing to update. Script exitting...")
@@ -28,7 +28,8 @@ for child in child_pages["results"]:
         if day_title in target_days:
             print(f"Resetting {day_title} ...")
 
-            notion.pages.update(page_id=day_id, icon={"type": "emoji", "emoji": "☑️"})
+            if day_title != "Heti célok":
+                notion.pages.update(page_id=day_id, icon={"type": "emoji", "emoji": "☑️"})
 
             blocks = notion.blocks.children.list(block_id=day_id)
             for block in blocks["results"]:
