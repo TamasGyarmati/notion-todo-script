@@ -9,10 +9,10 @@ KCAL_LIMIT = 1800
 today = datetime.now().weekday()
 
 if today == 6:
-    target_days = ["Hétfő", "Kedd", "Szerda", "Csütörtök", "Péntek", "Szombat"]
-    print("Sunday mode: Resetting Monday - Saturday")
+    target_days = ["Hétfő", "Kedd", "Szerda", "Csütörtök", "Péntek", "Szombat", "Heti célok"]
+    print("Sunday mode: Resetting Monday - Saturday plus Weekly Tasks")
 elif today == 0:
-    target_days = ["Vasárnap", "Heti célok"]
+    target_days = ["Vasárnap"]
     print("Monday mode: Resetting Sunday")
 else:
     print("Nothing to update. Script exitting...")
